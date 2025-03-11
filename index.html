@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Your CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Toggle Dark Mode -->
+    <div class="dark-mode">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Back Button -->
+    <button id="back-btn" class="hidden">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="screen screen-in">
+        <div class="container">
+            <div class="heart-loader">
+                <div class="heart"></div>
+            </div>
+            <p class="loading-text">Đang tải...</p>
+        </div>
+    </div>
+
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen hidden">
+        <div class="container glass-effect">
+            <h1 class="fancy-title">Chúc Mừng Sinh Nhật!</h1>
+            <div class="gift-box">
+                <div class="gift-container"></div>
+                <div class="gift-lid"></div>
+                <div class="gift-ribbon"></div>
+                <div class="gift-bow"></div>
+            </div>
+            <p class="tap-instruction">Chạm vào hộp quà để mở</p>
+        </div>
+    </div>
+
+    <!-- Birthday Input Screen -->
+    <div id="birthday-input-screen" class="screen hidden">
+        <div class="container glass-effect">
+            <h1 class="fancy-title">Hãy cho tôi biết ngày sinh nhật của bạn</h1>
+            <div class="form-container">
+                <input type="date" class="birthday-input" id="birthday-date">
+                <button id="submit-birthday" class="btn-primary pulse-btn">
+                    <i class="fas fa-gift"></i> Tiếp tục
+                </button>
+            </div>
+        </div>
+    </div>
+
+<!-- Fireworks Screen -->
+<div id="fireworks-screen" class="screen hidden">
+    <canvas id="fireworks-canvas"></canvas>
+    <div class="fireworks-message">
+        <h1 class="shimmer-text">Chúc Mừng Sinh Nhật</h1>
+        <p class="birthday-person" id="birthday-person-name">Người Đặc Biệt</p>
+    </div>
+    <!-- Nút chuyển tiếp -->
+    <button id="next-button" onclick="nextScreen()">Chuyển Tiếp</button>
+</div>
+
+
+
+    <!-- Cake Screen -->
+    <div id="cake-screen" class="screen hidden">
+        <div class="container glass-effect">
+            <h1 class="fancy-title">Hãy thổi nến và ước</h1>
+            <div class="cake-container">
+                <div class="cake">
+                    <div class="cake-bottom"></div>
+                    <div class="cake-middle"></div>
+                    <div class="cake-top"></div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                </div>
+            </div>
+            <p class="blow-instruction">Nhấn vào ngọn nến để thổi</p>
+            <button id="to-wish-btn" class="btn-primary hidden">
+                <i class="fas fa-heart"></i> Xem lời chúc
+            </button>
+        </div>
+    </div>
+
+    <!-- Blow Overlay -->
+    <div class="blow-overlay">
+        <p class="blow-instruction-large">Hãy thổi vào micro!</p>
+        <div class="microphone-icon">
+            <i class="fas fa-microphone"></i>
+        </div>
+        <div class="sound-wave">
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+        </div>
+    </div>
+
+    <!-- Wish Screen -->
+    <div id="wish-screen" class="screen hidden">
+        <div class="container glass-effect">
+            <h1 class="fancy-title">Lời Chúc Sinh Nhật</h1>
+            <div class="floating-hearts">
+                <i class="fas fa-heart heart1"></i>
+                <i class="fas fa-heart heart2"></i>
+                <i class="fas fa-heart heart3"></i>
+            </div>
+            <div class="wish-content">
+                <div class="wish-image-container">
+                    <div class="polaroid">
+                        <div class="photo-frame">
+                            <img src="embene.jpg" alt="Birthday" class="wish-image">
+                        </div>
+                        <p class="caption">Ngày đặc biệt</p>
+                    </div>
+                </div>
+                <div class="wish-text">
+                    <p>Chúc mừng sinh nhật! Hôm nay là ngày đặc biệt, ngày mà một người tuyệt vời đã đến với thế giới này.</p>
+                    <p>Chúc em bé luôn vui vẻ, hạnh phúc luôn mạnh khỏe nhe. Mong rằng tuổi mới em bé mong muốn gì được thành hiện thực cả nhaaa.Thương emm.</p>
+                    <p>Hãy luôn giữ nụ cười thật tươi nha em bé của anh bơ..</p>
+                </div>
+            </div>
+            <button id="to-album-btn" class="btn-primary">
+                <i class="fas fa-images"></i> Xem album ảnh
+            </button>
+        </div>
+    </div>
+
+    <!-- Album Screen -->
+    <div id="album-screen" class="screen hidden">
+        <div class="container glass-effect">
+            <h1 class="fancy-title">Kỷ Niệm Đẹp</h1>
+            <div class="album-container">
+                <div class="music-player">
+                    <div class="player-controls">
+                        <button class="btn-circle" id="play-music">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="music-info">
+                            <p>Happy Birthday Song</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slideshow-container">
+                    <!-- Slide 1 -->
+                    <div class="slide fade">
+                        <img src="Namtay.jpg" alt="Memory 1">
+                        <div class="slide-caption">Khoảnh khắc đáng nhớ 1</div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slide fade">
+                        <img src="embene.jpg" alt="Memory 2">
+                        <div class="slide-caption">Khoảnh khắc đáng nhớ 2</div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="slide fade">
+                        <img src="anhduem.jpg" alt="Memory 3">
+                        <div class="slide-caption">Khoảnh khắc đáng nhớ 3</div>
+                    </div>
+                
+                    <!-- Nút điều khiển -->
+                    <a class="prev">&#10094;</a>
+                    <a class="next">&#10095;</a>
+                </div>
+                
+                <div class="slideshow-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div class="toast">
+        <i class="fas fa-birthday-cake"></i>
+        <span class="toast-message">Chúc mừng sinh nhật!</span>
+    </div>
+
+    <!-- Confetti Container -->
+    <div class="confetti-container"></div>
+
+    <!-- Popup -->
+    <div class="popup">
+        <div class="close-popup"></div>
+        <h2>Chúc Mừng!</h2>
+        <p>Bạn đã mở được món quà đặc biệt!</p>
+    </div>
+    <div class="popup-overlay"></div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <audio id="audioPlayer" controls>
+        <source src="d:\bebo\ChucMungSinhNhat-HoaTau-3089002.mp3" type="audio/mp3">
+        Trình duyệt của bạn không hỗ trợ thẻ audio.
+    </audio>
+    
+    <script>
+        // Đảm bảo phát nhạc khi trang tải xong
+        window.onload = function() {
+            var audio = document.getElementById('audioPlayer');
+            audio.play();  // Phát nhạc tự động khi trang tải xong
+        };
+    </script>
+    
+</body>
+</html>
